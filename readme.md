@@ -1,6 +1,6 @@
-## Server Side Rendering SSR
+## Server Side Rendering (SSR)
 
-the idea is to render the htm in the server first (run React in our server before and returning the rendered html to the browser).
+the idea is to render the htm in the server first (run React in our server before sending the response to the browser and returning the rendered html to the browser).
 
 ### A shallow Algorithm for doing SSR
 
@@ -14,4 +14,4 @@ the idea is to render the htm in the server first (run React in our server befor
 ### Problems will we face.
 
 - booting up the React Application in the server
-- building the React bundle an
+- building the React bundle
