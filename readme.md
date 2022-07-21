@@ -1,6 +1,6 @@
 ## Server Side Rendering (SSR)
 
-the idea is to render the htm in the server first (run React in our server before sending the response to the browser and returning the rendered html to the browser).
+the idea is to render the html in the server first (run React in our server before sending the response to the browser and returning the rendered html to the browser).
 
 ### A shallow Algorithm for doing SSR
 
@@ -10,6 +10,13 @@ the idea is to render the htm in the server first (run React in our server befor
   now you have the React application in the browser and you repsonded with the first response
 - hydrate your first html you responded with (add the javascript code required for it to work)
   hydration means attaching your event listeners and all js stuff to bring life to them (to make them dynamic)
+
+### Redux Challenges
+
+- Redux needs different configuration on browser vs server
+- Aspects of authentication needs to be handled on server. (Normally this is only on browser)
+- Need some way to detect when all initial data load action creators are completed on server
+- Need state rehydration on the browser
 
 ## Routing
 
