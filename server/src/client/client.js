@@ -1,6 +1,10 @@
-import Home from "./components/Home";
-
 import React from "react";
 import ReactDOM from "react-dom";
-
-ReactDOM.hydrate(<Home />, document.querySelector("#root"));
+import Routes from "./Routes";
+import { BrowserRouter, Route } from "react-router-dom";
+ReactDOM.hydrate(
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>,
+  document.querySelector("#root")
+);
