@@ -164,22 +164,48 @@ var _Routes2 = _interopRequireDefault(_Routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 var app = (0, _express2.default)();
 
 app.use(_express2.default.static("public"));
-app.get("*", function (req, res, next) {
-  var store = (0, _createStore2.default)();
-  // some logic to initialize and load data into the store
-  (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (item) {
-    console.log(item, "from item");
-    var route = item.route;
+app.get("*", function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res, next) {
+    var store, loadDataPromises, html;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            store = (0, _createStore2.default)();
+            // some logic to initialize and load data into the store
 
-    return route.loadData ? route.loadData() : null;
-  });
-  var html = (0, _renderer2.default)(req, store);
+            loadDataPromises = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (item) {
+              console.log(item, "from item");
+              var route = item.route;
 
-  res.send(html);
-});
+              return route.loadData ? route.loadData(store) : null;
+            });
+            _context.next = 4;
+            return Promise.all(loadDataPromises);
+
+          case 4:
+            html = (0, _renderer2.default)(req, store);
+
+
+            res.send(html);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}());
 
 app.listen(3000, function () {
   return console.log("server running successfully");
@@ -496,8 +522,8 @@ function mapStateToProps(state) {
     users: state.users
   };
 }
-var loadData = exports.loadData = function loadData() {
-  console.log("i am trying to load data");
+var loadData = exports.loadData = function loadData(store) {
+  return store.dispatch((0, _actions.fetchUsers)());
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _actions.fetchUsers })(UserList);
