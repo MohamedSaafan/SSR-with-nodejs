@@ -46,3 +46,11 @@ But , How?
 
 before responding with the HMTL put a script inside it and initialize a property in the **global** `window` **object** with the redux state loaded from the server.
 in the client retreive that property from the `window` object and put it as initial state for the redux store used in the client.
+
+## XSS Attack can possible
+
+by doing the previous approach of dumping the server loaded state inside the HTML in a script, xss attacks is possible
+
+### A Solution
+
+`serialize-javascript`
