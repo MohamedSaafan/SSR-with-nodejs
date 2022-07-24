@@ -37,3 +37,12 @@ the idea is to render the html in the server first (run React in our server befo
 - call these `loadData` functions
 - dispatch action creators manually
 - render the application and respond with the result
+
+### Redhydrating Redux State
+
+Just initialize the client store the the state of the finished store of the server.
+
+But , How?
+
+before responding with the HMTL put a script inside it and initialize a property in the **global** `window` **object** with the redux state loaded from the server.
+in the client retreive that property from the `window` object and put it as initial state for the redux store used in the client.

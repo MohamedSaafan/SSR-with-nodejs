@@ -4,13 +4,19 @@ import ReactDOM from "react-dom";
 import Routes from "./Routes";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import createStore from "../helpers/createStore";
+
 import reducers from "./reducers";
-import { applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { renderRoutes } from "react-router-config";
 
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+// get the state dumped in the html
+console.log(window.INITIAL_STATE, "from window initial state");
+const store = createStore(
+  reducers,
+  window.INITIAL_STATE,
+  applyMiddleware(thunk)
+);
 
 ReactDOM.hydrate(
   <Provider store={store}>
